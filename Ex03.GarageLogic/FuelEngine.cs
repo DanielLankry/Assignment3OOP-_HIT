@@ -14,6 +14,7 @@ namespace Ex03.GarageLogic
             }
         }
 
-        // public FuelEngine(eFuelType i_FuelType) // Complete after video watching
+        public FuelEngine(eFuelType i_FuelType, float i_CurrentFuelAmount, float i_MaxFuelAmount) : base(i_CurrentFuelAmount, i_MaxFuelAmount)
+        { }
     }
 }

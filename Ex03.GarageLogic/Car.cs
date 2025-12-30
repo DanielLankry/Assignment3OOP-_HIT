@@ -32,6 +32,9 @@ namespace Ex03.GarageLogic
             }
         }
 
+        public Car(string i_LicenceNumber, string i_ModelName, Engine i_Engine, Wheel[] i_Wheels, eCarColor i_CarColor, eNumberOfDoors i_NumberOfDoors)
+            : base(i_LicenceNumber, i_ModelName, i_Engine, i_Wheels)
+        { }
 
     }
 }
