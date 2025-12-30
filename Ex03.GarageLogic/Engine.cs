@@ -30,5 +30,11 @@ namespace Ex03.GarageLogic
                 return m_MaxEnergyAmount;
             }
         }
+
+        public Engine(float i_CurrentEnergyAmount, float i_MaxEnergyAmount)
+        {
+            m_MaxEnergyAmount = i_MaxEnergyAmount;
+            CurrentEnergyAmount = i_CurrentEnergyAmount;
+        }
     }
 }
