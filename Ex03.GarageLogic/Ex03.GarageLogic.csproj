@@ -40,25 +40,27 @@
     <None Include="ProjectDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Car.cs" />
-    <Compile Include="ElectricCar.cs" />
-    <Compile Include="ElectricEngine.cs" />
-    <Compile Include="ElectricMotorcycle.cs" />
-    <Compile Include="Engine.cs" />
+    <Compile Include="Base Files\Car.cs" />
+    <Compile Include="Electric Vehicles\ElectricCar.cs" />
+    <Compile Include="Engines\ElectricEngine.cs" />
+    <Compile Include="Electric Vehicles\ElectricMotorcycle.cs" />
+    <Compile Include="Engines\Engine.cs" />
     <Compile Include="enums\eCarColor.cs" />
     <Compile Include="enums\eFuelType.cs" />
     <Compile Include="enums\eNumberOfDoors.cs" />
-    <Compile Include="FuelCar.cs" />
-    <Compile Include="FuelEngine.cs" />
-    <Compile Include="FuelMotorcycle.cs" />
-    <Compile Include="FuelTruck.cs" />
+    <Compile Include="enums\eVehicleStatus.cs" />
+    <Compile Include="Fuel Vehicles\FuelCar.cs" />
+    <Compile Include="Engines\FuelEngine.cs" />
+    <Compile Include="Fuel Vehicles\FuelMotorcycle.cs" />
+    <Compile Include="Fuel Vehicles\FuelTruck.cs" />
     <Compile Include="GarageManager.cs" />
-    <Compile Include="Motorcycle.cs" />
-    <Compile Include="Truck.cs" />
-    <Compile Include="Vehicle.cs" />
+    <Compile Include="Base Files\Motorcycle.cs" />
+    <Compile Include="Base Files\Truck.cs" />
+    <Compile Include="ValueRangeException.cs" />
+    <Compile Include="Base Files\Vehicle.cs" />
     <Compile Include="VehicleCreator.cs" />
     <Compile Include="VehicleInGarage.cs" />
-    <Compile Include="Wheel.cs" />
+    <Compile Include="Base Files\Wheel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
