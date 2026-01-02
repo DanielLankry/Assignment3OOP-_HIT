@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 
 namespace Ex03.GarageLogic
@@ -16,13 +17,13 @@ namespace Ex03.GarageLogic
             }
             set
             {
-                if(value <= m_MaxEnergyAmount && value >= 0)
+                if(value <= m_MaxEnergyAmount || value >= 0)
                 {
-                    m_CurrentEnergyAmount = value;
+                   throw new ValueRangeException(0, m_MaxEnergyAmount, "Input Error");
                 }
-                // Add exception after Video
             }
         }
+
         public float MaxEnergyAmount
         {
             get
@@ -36,5 +37,12 @@ namespace Ex03.GarageLogic
             m_MaxEnergyAmount = i_MaxEnergyAmount;
             CurrentEnergyAmount = i_CurrentEnergyAmount;
         }
+
+        public Engine(float i_MaxEnergyAmount)
+        {
+            m_MaxEnergyAmount = i_MaxEnergyAmount;
+        }
+
+        public abstract void FillEnergy(float i_Amount, string i_EnergyType = null);
     }
 }
