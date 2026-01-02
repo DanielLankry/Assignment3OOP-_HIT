@@ -6,7 +6,7 @@ namespace Ex03.GarageLogic
     
     public class Car : Vehicle
     {
-        eCarColor m_CarColor;
+       private eCarColor m_CarColor;
         eNumberOfDoors m_NumberOfDoors;
 
         public eCarColor CarColor

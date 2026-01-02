@@ -25,18 +25,23 @@ namespace Ex03.GarageLogic
 
         public override void FillEnergy(float i_Amount, string i_EnergyType)
         {
-            eFuelType inputType;
-            if (!System.Enum.TryParse(i_EnergyType, out inputType) || inputType != FuelType)
+            try
             {
-                throw new System.ArgumentException("Invalid fuel type");
-            }
+                eFuelType inputType;
+                if (!System.Enum.TryParse(i_EnergyType, out inputType) || inputType != FuelType)
+                {
+                    throw new System.ArgumentException("Invalid fuel type");
+                }
 
-            if (CurrentEnergyAmount + i_Amount > MaxEnergyAmount)
+                if (CurrentEnergyAmount + i_Amount > MaxEnergyAmount)
+                {
+                    throw new ValueRangeException(0, MaxEnergyAmount - CurrentEnergyAmount, "Fuel tank overflow");
+                }
+            }
+            catch (ValueRangeException)
             {
-                throw new ValueRangeException(0, MaxEnergyAmount - CurrentEnergyAmount, "Fuel tank overflow");
+                CurrentEnergyAmount += i_Amount;
             }
-
-            CurrentEnergyAmount += i_Amount;
         }
     }
 }
