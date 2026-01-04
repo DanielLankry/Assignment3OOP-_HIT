@@ -1,4 +1,5 @@
 <Solution>
+  <Folder Name="/Solution Items/" />
   <Project Path="Ex03.ConsoleUI/Ex03.ConsoleUI.csproj" Id="6fd42ffc-08fd-4b19-9c43-c878a0c59ffc" />
   <Project Path="Ex03.GarageLogic/Ex03.GarageLogic.csproj" Id="4fcafa48-9704-4a1d-b3ca-c53da5d690f8" />
 </Solution>

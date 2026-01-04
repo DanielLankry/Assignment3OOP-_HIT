@@ -8,7 +8,7 @@ namespace Ex03.GarageLogic
     {
         readonly string r_LicenseNumber;
         readonly string m_ModelName;
-       // public float EnergyPercentage;
+        public float m_EnergyPercentage;
         public List<Wheel> Wheels;
         public Engine Engine;
 
@@ -26,13 +26,13 @@ namespace Ex03.GarageLogic
                 return m_ModelName;
             }
         }
-        //public float EnergyPercentage
-        //{
-        //    get
-        //    {
-        //        return (Engine.CurrentEnergyAmount / Engine.MaxEnergyAmount) * 100;
-        //    }
-        //}
+        public float EnergyPercentage
+        {
+            get
+            {
+                return (Engine.CurrentEnergyAmount / Engine.MaxEnergyAmount) * 100;
+            }
+        }
 
         public Vehicle(string i_LicenceNumber, string i_ModelName)
         {

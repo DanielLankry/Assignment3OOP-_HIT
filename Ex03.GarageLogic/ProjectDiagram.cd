@@ -15,7 +15,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Ex03.GarageLogic.Vehicle">
-    <Position X="5" Y="0.5" Width="1.5" />
+    <Position X="5" Y="0.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAEAAAAAAAAAAEAAAAQAAAAAQBAAAAAgAAgA=</HashCode>
       <FileName>Base Files\Vehicle.cs</FileName>
@@ -29,14 +29,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Ex03.GarageLogic.Truck">
-    <Position X="9.5" Y="4.25" Width="1.5" />
+    <Position X="9.5" Y="4.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAACAA=</HashCode>
       <FileName>Base Files\Truck.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Ex03.GarageLogic.ElectricMotorcycle">
-    <Position X="5" Y="6.75" Width="1.5" />
+    <Position X="5" Y="6.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Electric Vehicles\ElectricMotorcycle.cs</FileName>
