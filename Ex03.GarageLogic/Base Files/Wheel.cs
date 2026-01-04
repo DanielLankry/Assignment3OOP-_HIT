@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq.Expressions;
+using System.Runtime.InteropServices;
 
 
 namespace Ex03.GarageLogic
@@ -37,11 +39,20 @@ namespace Ex03.GarageLogic
 
         public void Inflate(float i_AirToAdd)
         {
-            if (m_CurrentAirPressure + i_AirToAdd > r_MaxAirPressure)
-            {
-                throw new ValueRangeException(0, r_MaxAirPressure - m_CurrentAirPressure, "Air Pressure is to high");
+            try
+                {
+                if (m_CurrentAirPressure + i_AirToAdd > r_MaxAirPressure)
+                {
+                    throw new ValueRangeException(0, r_MaxAirPressure - m_CurrentAirPressure, "Air Pressure is to high");
+                }
+                m_CurrentAirPressure += i_AirToAdd;
             }
-            m_CurrentAirPressure += i_AirToAdd;
+            catch(ValueRangeException ex)
+            {
+                // הצגת הודעה למשתמש
+            }
+
+
         }
 
     }

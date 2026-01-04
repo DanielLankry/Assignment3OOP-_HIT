@@ -7,8 +7,17 @@ namespace Ex03.GarageLogic
 
     public abstract class Motorcycle : Vehicle
     {
-        public eLicenseType LicenseType { get; set; }
-        public int EngineVolume { get; set; }
+        public readonly eLicenseType r_LicenseType;
+        public readonly int r_EngineVolume;
+
+        public eLicenseType LicenseType
+        {
+            get { return r_LicenseType; }
+        }
+        public int EngineVolume
+        {
+            get { return r_EngineVolume; }
+        }
 
         protected Motorcycle(string i_LicenseNumber, string i_ModelName)
             : base(i_LicenseNumber, i_ModelName)
