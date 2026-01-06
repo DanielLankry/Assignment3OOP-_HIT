@@ -1,12 +1,13 @@
-﻿using System;
+using System;
 
-namespace Ex03.GarageLogic.enums
+namespace Ex03.GarageLogic
 {
     public enum eVehicleStatus
     {
         InRepair,
-        Repairesd,
+        Repaired,
         Paid,
-        OutofService
+        OutOfService
     }
 }
+

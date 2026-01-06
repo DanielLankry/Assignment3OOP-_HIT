@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace Ex03.GarageLogic
 {
@@ -25,6 +25,9 @@ namespace Ex03.GarageLogic
                 case "FuelTruck":
                     newVehicle = new FuelTruck(i_LicenseID, i_ModelName);
                     break;
+                case "Truck":
+                    newVehicle = new FuelTruck(i_LicenseID, i_ModelName);
+                    break;
             }
 
             return newVehicle;
@@ -32,7 +35,8 @@ namespace Ex03.GarageLogic
 
         public static List<string> SupportedTypes
         {
-            get{return new List<string> { "FuelCar", "ElectricCar", "FuelMotorcycle", "ElectricMotorcycle", "FuelTruck" }; }
+            get{return new List<string> { "FuelCar", "ElectricCar", "FuelMotorcycle", "ElectricMotorcycle", "Truck" }; }
         }
     }
 }
+
