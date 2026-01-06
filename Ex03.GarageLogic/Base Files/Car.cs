@@ -36,5 +36,20 @@ namespace Ex03.GarageLogic
         {
         }
 
+        public override string GetTypeSpecificDetails()
+        {
+            return string.Format("Color: {0}\nDoors: {1}", CarColor, NumberOfDoors);
+        }
+
+        public override void LoadTypeSpecificData(string[] i_Parts, int i_StartIndex)
+        {
+            if (i_Parts.Length < i_StartIndex + 2)
+            {
+                throw new FormatException("Car requires color and number of doors.");
+            }
+
+            CarColor = (eCarColor)Enum.Parse(typeof(eCarColor), i_Parts[i_StartIndex], true);
+            NumberOfDoors = (eNumberOfDoors)int.Parse(i_Parts[i_StartIndex + 1]);
+        }
     }
 }

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Ex03.GarageLogic;
-using Ex03.GarageLogic.enums;
 namespace Ex03.ConsoleUI
 {
     public class ConsoleManager
@@ -31,8 +30,19 @@ namespace Ex03.ConsoleUI
                     switch (userInput)
                     {
                         case "1":
-                            m_Garage.LoadVehiclesFromFile("VehiclesDB.txt");
-                            Console.WriteLine("File loaded successfully (if existed).");
+                            List<string> errors = m_Garage.LoadVehiclesFromFile("VehiclesDB.txt");
+                            if (errors.Count == 0)
+                            {
+                                Console.WriteLine("File loaded successfully.");
+                            }
+                            else
+                            {
+                                Console.WriteLine("File loaded with errors:");
+                                foreach (string error in errors)
+                                {
+                                    Console.WriteLine(error);
+                                }
+                            }
                             break;
                         case "2":
                             addNewVehicleUI();
@@ -224,3 +234,4 @@ namespace Ex03.ConsoleUI
         }
     }
 }
+

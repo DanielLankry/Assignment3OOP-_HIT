@@ -1,13 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using Ex03.GarageLogic.enums;
 
 namespace Ex03.GarageLogic
 {
     public class GarageManager
     {
-        // המילון שמחזיק את הרכבים לפי מספר רישוי
         private readonly Dictionary<string, VehicleInGarage> m_Vehicles;
 
         public GarageManager()
@@ -98,7 +96,6 @@ namespace Ex03.GarageLogic
                 throw new ArgumentException("This vehicle is not electric.");
             }
 
-            // המרה מדקות לשעות
             float hoursToAdd = i_Minutes / 60f;
             vehicle.Engine.FillEnergy(hoursToAdd, null);
         }
@@ -110,10 +107,9 @@ namespace Ex03.GarageLogic
                 throw new ArgumentException("Vehicle not found in garage");
             }
 
-            VehicleInGarage entry = m_Vehicles[i_LicensePlate];
-            Vehicle v = entry.Vehicle;
+            VehicleInGarage newVehicleInGarage = m_Vehicles[i_LicensePlate];
+            Vehicle newVehicle = newVehicleInGarage.Vehicle;
 
-            // שימוש ב-StringBuilder או שרשור מחרוזות פשוט לבניית התצוגה
             string details = string.Format(
 @"License Number: {0}
 Model Name: {1}
@@ -122,48 +118,41 @@ Status: {3}
 Energy Percentage: {4:0.00}%
 Current Energy Amount: {5} / {6}
 Wheels: {7} (Pressure: {8})",
-                v.LicenseNumber,
-                v.ModelName,
-                entry.OwnerName,
-                entry.Status,
-                v.EnergyPercentage,
-                v.Engine.CurrentEnergyAmount,
-                v.Engine.MaxEnergyAmount,
-                v.Wheels[0].ManufacturerName, // בהנחה שכל הגלגלים זהים
-                v.Wheels[0].CurrentAirPressure);
+                newVehicle.LicenseNumber,
+                newVehicle.ModelName,
+                newVehicleInGarage.OwnerName,
+                newVehicleInGarage.Status,
+                newVehicle.EnergyPercentage,
+                newVehicle.Engine.CurrentEnergyAmount,
+                newVehicle.Engine.MaxEnergyAmount,
+                newVehicle.Wheels[0].ManufacturerName,
+                newVehicle.Wheels[0].CurrentAirPressure);
 
-            // הוספת פרטים ספציפיים לפי סוג הרכב
-            if (v is Car)
+            string typeSpecificDetails = newVehicle.GetTypeSpecificDetails();
+            if (!string.IsNullOrEmpty(typeSpecificDetails))
             {
-                Car car = v as Car;
-                details += string.Format("\nColor: {0}\nDoors: {1}", car.CarColor, car.NumberOfDoors);
-            }
-            else if (v is Motorcycle)
-            {
-                Motorcycle moto = v as Motorcycle;
-                details += string.Format("\nLicense Type: {0}\nEngine Volume: {1}cc", moto.LicenseType, moto.EngineVolume);
-            }
-            else if (v is Truck)
-            {
-                Truck truck = v as Truck;
-                details += string.Format("\nHazardous Cargo: {0}\nCargo Volume: {1}", truck.IsHazardousCargo, truck.CargoVolume);
+                details += "\n" + typeSpecificDetails;
             }
 
             return details;
         }
 
-        public void LoadVehiclesFromFile(string i_FileName)
+        public List<string> LoadVehiclesFromFile(string i_FileName)
         {
+            List<string> errors = new List<string>();
+
             if (!File.Exists(i_FileName))
             {
-                return;
+                errors.Add(string.Format("File not found: {0}", i_FileName));
+                return errors;
             }
 
             string[] allLines = File.ReadAllLines(i_FileName);
 
-            foreach (string line in allLines)
+            for (int i = 0; i < allLines.Length; i++)
             {
-                if (string.IsNullOrWhiteSpace(line) || line.StartsWith("*") || line.StartsWith("THE FORMAT"))
+                string line = allLines[i];
+                if (string.IsNullOrWhiteSpace(line) || line.StartsWith("*") || line.StartsWith("THE FORMAT") || line.StartsWith("VehicleType"))
                 {
                     continue;
                 }
@@ -171,7 +160,10 @@ Wheels: {7} (Pressure: {8})",
                 try
                 {
                     string[] parts = line.Split(',');
-                    // הפורמט: Type, License, Model, Energy%, WheelManu, Pressure, Owner, Phone, [Extra...]
+                    if (parts.Length < 8)
+                    {
+                        throw new FormatException("Missing required fields.");
+                    }
 
                     string type = parts[0];
                     string license = parts[1];
@@ -182,50 +174,46 @@ Wheels: {7} (Pressure: {8})",
                     string ownerName = parts[6];
                     string ownerPhone = parts[7];
 
-                    // 1. יצירת הרכב
-                    Vehicle v = VehicleCreator.CreateVehicle(type, license, model);
-
-                    // 2. עדכון גלגלים
-                    foreach (Wheel w in v.Wheels)
+                    Vehicle newVehicle = VehicleCreator.CreateVehicle(type, license, model);
+                    if (newVehicle == null)
                     {
-                        // הערה: יש לוודא שקיימת מתודה לעדכון שם יצרן ב-Wheel או שהשדה public
-                        w.ManufacturerName = wheelManu; // דורש set public ב-Wheel
+                        throw new ArgumentException(string.Format("Unsupported vehicle type: {0}", type));
+                    }
+
+                    foreach (Wheel w in newVehicle.Wheels)
+                    {
+                        w.ManufacturerName = wheelManu;
                         w.Inflate(currentPressure);
                     }
 
-                    // 3. עדכון אנרגיה
-                    float currentEnergy = (energyPercent / 100f) * v.Engine.MaxEnergyAmount;
-                    v.Engine.CurrentEnergyAmount = currentEnergy;
+                    float currentEnergy = (energyPercent / 100f) * newVehicle.Engine.MaxEnergyAmount;
+                    newVehicle.Engine.CurrentEnergyAmount = currentEnergy;
 
-                    // 4. עדכון מאפיינים ייחודיים
-                    if (v is Car)
-                    {
-                        Car car = v as Car;
-                        // המרה מהטקסט ל-Enum
-                        car.CarColor = (eCarColor)Enum.Parse(typeof(eCarColor), parts[8], true);
-                        car.NumberOfDoors = (eNumberOfDoors)int.Parse(parts[9]);
-                    }
-                    else if (v is Motorcycle)
-                    {
-                        Motorcycle moto = v as Motorcycle;
-                        moto.LicenseType = (eLicenseType)Enum.Parse(typeof(eLicenseType), parts[8], true);
-                        moto.EngineVolume = int.Parse(parts[9]);
-                    }
-                    else if (v is Truck)
-                    {
-                        Truck truck = v as Truck;
-                        truck.IsHazardousCargo = bool.Parse(parts[8]);
-                        truck.CargoVolume = float.Parse(parts[9]);
-                    }
+                    newVehicle.LoadTypeSpecificData(parts, 8);
 
-                    AddNewVehicle(v, ownerName, ownerPhone);
+                    AddNewVehicle(newVehicle, ownerName, ownerPhone);
                 }
-                catch
+                catch (FormatException ex)
                 {
-                    // דילוג על שורה תקולה והמשך לשורה הבאה
-                    continue;
+                    errors.Add(string.Format("Line {0}: {1}", i + 1, ex.Message));
+                }
+                catch (ArgumentException ex)
+                {
+                    errors.Add(string.Format("Line {0}: {1}", i + 1, ex.Message));
+                }
+                catch (IndexOutOfRangeException ex)
+                {
+                    errors.Add(string.Format("Line {0}: {1}", i + 1, ex.Message));
+                }
+                catch (ValueRangeException ex)
+                {
+                    errors.Add(string.Format("Line {0}: {1}", i + 1, ex.Message));
                 }
             }
+
+            return errors;
         }
     }
 }
+
+
