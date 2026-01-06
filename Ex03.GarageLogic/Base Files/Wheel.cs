@@ -7,13 +7,13 @@ namespace Ex03.GarageLogic
 {
     public class Wheel
     {
-        readonly string r_ManufacturerName;
+        string m_ManufacturerName;
         float r_MaxAirPressure;
         float m_CurrentAirPressure;
 
         public Wheel(string i_ManufacturerName, float i_CurrentAirPressure, float i_MaxAirPressure)
         {
-            r_ManufacturerName = i_ManufacturerName;
+            m_ManufacturerName = i_ManufacturerName;
             r_MaxAirPressure = i_MaxAirPressure;
             m_CurrentAirPressure = i_CurrentAirPressure;
         }
@@ -21,10 +21,12 @@ namespace Ex03.GarageLogic
         public Wheel(float i_MaxAirPressure)
         {
             MaxAirPressure = i_MaxAirPressure;
+            m_ManufacturerName = string.Empty;
         }
-        public string ManafacturerName
+        public string ManufacturerName
         {
-            get { return r_ManufacturerName; }
+            get { return m_ManufacturerName; }
+            set { m_ManufacturerName = value; }
         }
         public float MaxAirPressure
         {

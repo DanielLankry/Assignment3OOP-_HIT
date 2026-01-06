@@ -34,13 +34,13 @@ namespace Ex03.GarageLogic
 
         public bool IsHazardousCargo
         {
-            get { return IsHazardousCargo; }
-            private set { IsHazardousCargo = value; }
+            get { return m_IsHazardousCargo; }
+            set { m_IsHazardousCargo = value; }
         }
         public float CargoVolume
         {
-            get { return CargoVolume; }
-            private set { CargoVolume = value; }
+            get { return m_CargoVolume; }
+            set { m_CargoVolume = value; }
         }
 
         protected Truck(string i_LicenseNumber, string i_ModelName)

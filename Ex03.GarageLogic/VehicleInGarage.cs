@@ -6,21 +6,26 @@ namespace Ex03.GarageLogic
 {
     public class VehicleInGarage
     {
-        public readonly Vehicle r_Vehicle;
-        public string  m_OwnerName;
-        public string m_OwnerPhone;
-        public eVehicleStatus m_Status;
+        private readonly Vehicle r_Vehicle;
+        private string m_OwnerName;
+        private string m_OwnerPhone;
+        private eVehicleStatus m_Status;
+
+        public Vehicle Vehicle
+        {
+            get { return r_Vehicle; }
+        }
 
         public string OwnerName
         {
-            get { return OwnerName; }
-            set { OwnerName = value; }
+            get { return m_OwnerName; }
+            set { m_OwnerName = value; }
         }
 
         public string OwnerPhone
         {
-            get { return OwnerPhone; }
-            set { OwnerPhone = value; }
+            get { return m_OwnerPhone; }
+            set { m_OwnerPhone = value; }
         }
 
         public eVehicleStatus Status
