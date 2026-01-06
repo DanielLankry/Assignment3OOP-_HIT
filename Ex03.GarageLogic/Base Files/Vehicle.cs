@@ -38,6 +38,7 @@ namespace Ex03.GarageLogic
         {
             r_LicenseNumber = i_LicenceNumber;
             m_ModelName = i_ModelName;
+            Wheels = new List<Wheel>();
         }
 
         public virtual Dictionary<string, string> GetVehicleDetails()

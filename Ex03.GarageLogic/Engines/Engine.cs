@@ -17,10 +17,11 @@ namespace Ex03.GarageLogic
             }
             set
             {
-                if(value <= m_MaxEnergyAmount || value >= 0)
+                if(value > m_MaxEnergyAmount || value < 0)
                 {
                    throw new ValueRangeException(0, m_MaxEnergyAmount, "Input Error");
                 }
+                m_CurrentEnergyAmount = value;
             }
         }
 
