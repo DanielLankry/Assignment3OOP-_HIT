@@ -35,7 +35,7 @@ namespace Ex03.GarageLogic
         public Engine(float i_CurrentEnergyAmount, float i_MaxEnergyAmount)
         {
             m_MaxEnergyAmount = i_MaxEnergyAmount;
-            CurrentEnergyAmount = i_CurrentEnergyAmount;
+            m_CurrentEnergyAmount = i_CurrentEnergyAmount;
         }
 
         public Engine(float i_MaxEnergyAmount)
